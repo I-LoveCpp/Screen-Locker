@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30907.101
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Screen-Locker", "Screen-Locker.vcxproj", "{7A9E3278-BB3E-44EA-A7AD-F5E1B8B31899}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7A9E3278-BB3E-44EA-A7AD-F5E1B8B31899}.Debug|x64.ActiveCfg = Debug|x64
+		{7A9E3278-BB3E-44EA-A7AD-F5E1B8B31899}.Debug|x64.Build.0 = Debug|x64
+		{7A9E3278-BB3E-44EA-A7AD-F5E1B8B31899}.Debug|x86.ActiveCfg = Debug|Win32
+		{7A9E3278-BB3E-44EA-A7AD-F5E1B8B31899}.Debug|x86.Build.0 = Debug|Win32
+		{7A9E3278-BB3E-44EA-A7AD-F5E1B8B31899}.Release|x64.ActiveCfg = Release|x64
+		{7A9E3278-BB3E-44EA-A7AD-F5E1B8B31899}.Release|x64.Build.0 = Release|x64
+		{7A9E3278-BB3E-44EA-A7AD-F5E1B8B31899}.Release|x86.ActiveCfg = Release|Win32
+		{7A9E3278-BB3E-44EA-A7AD-F5E1B8B31899}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E32D65E8-637A-4813-9A17-AA03000AB0FC}
+	EndGlobalSection
+EndGlobal
