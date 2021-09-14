@@ -100,7 +100,7 @@ using namespace std;
 #define LAH   1760
 #define TEEH  1976
 
-bool IsWin10;
+bool IsWin10, Relocation = false;
 
 template <typename T>
 string buling(T text, long long number, bool front)
@@ -196,7 +196,7 @@ bool Preserve(Button A){
     gto(A.x,A.y),color(A.color),printf("%s",A.name);
     POINT pt;
     GetPos(pt);
-    if(pt.x == A.x &&(pt.y + ((IsWin10) ? (0) : (pt.y / 6)) >=A.y&&pt.y + ((IsWin10) ? (0) : (pt.y / 6)) <=A.y+A.len)){
+    if(pt.x == A.x &&(pt.y + ((!Relocation) ? (0) : (pt.y / 6)) >=A.y&&pt.y + ((!Relocation) ? (0) : (pt.y / 6)) <=A.y+A.len)){
         color(A.pointcolor),gto(A.x,A.y),printf("%s",A.name);
         if(KEY_DOWN(MOUSE_MOVED)) return 1;
     }

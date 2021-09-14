@@ -109,6 +109,10 @@
     <ResourceCompile>
       <Culture>0x0004</Culture>
     </ResourceCompile>
+    <Manifest>
+      <AssemblyIdentity>
+      </AssemblyIdentity>
+    </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="code\main.cpp" />

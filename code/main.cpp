@@ -2,7 +2,7 @@
 
 using namespace std;
 
-const string edition = "1000";
+const string edition = "1412";
 string Title;
 
 bool stop = true;
@@ -45,6 +45,10 @@ string NoMouse[100] = { _T("Disable mouse"),
 string OnOff[100] = { _T("On/Off"),
 					_T("开/关"),
 					_T("開/關"),
+};
+string Relocat[100] = { _T("  080724Relocation"),
+					_T("鼠标重定位"),
+					_T("滑鼠重定位"),
 };
 
 void chooselan()
@@ -125,7 +129,7 @@ void record(int kind)
 	GetLocalTime(&sys);
 	out << sys.wYear << "-" << sys.wMonth << "-" << sys.wDay << " " << sys.wHour << ":" << sys.wMinute << ":" << sys.wSecond << "." << sys.wMilliseconds << " ";
 	if (kind == 1) out << "Click" << endl;
-	else out << "Password Wrong" << endl;
+	else out << "Input Password" << endl;
 }
 HWND hwnd = GetForegroundWindow();
 void cursorHide()
@@ -134,6 +138,7 @@ void cursorHide()
 	GetCursorPos(&p1);//获取鼠标坐标 
 	while (1)
 	{
+		if (stop == false)if (KEY_DOWN(MOUSE_MOVED))record(1);
 		if (stop == false && mouse_stop == true)
 		{
 			int x = GetSystemMetrics(SM_CXFULLSCREEN);
@@ -146,7 +151,6 @@ void cursorHide()
 				GetCursorPos(&p2);//获取鼠标坐标 
 				if (p1.x != p2.x || p1.y != p2.y) break;
 				p1 = p2;
-				if (KEY_DOWN(MOUSE_MOVED))record(1);
 				SetWindowPos(hwnd, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
 				ShowWindow(hwnd, SW_MAXIMIZE);
 				Sleep(1);
@@ -189,6 +193,30 @@ int GetProcessCount(const TCHAR* szExeName)
 string s, password = "080724";
 const int window_x = GetSystemMetrics(SM_CXSCREEN);
 const int window_y = GetSystemMetrics(SM_CYSCREEN);
+
+void lockscreen()
+{
+	while (1)
+	{
+		if (stop == false)
+		{
+			HWND hwnd1;	//本程序窗口 
+			HWND hwnd;	//目标窗口 
+			hwnd1 = GetForegroundWindow();//获取本程序窗口 
+			//ShowWindow(hwnd, SW_HIDE);		//隐藏窗口 	
+			hwnd = GetHWnd();	//获取最顶层窗口 
+			SetWindowPos(hwnd, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);//窗口置顶 
+			//ShowWindow(hwnd1, SW_RESTORE);		//激活并显示窗口 
+			//SetWindowPos(hwnd1, HWND_TOP, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);//窗口暂时置顶
+			ShowWindow(hwnd1, SW_MAXIMIZE);
+		}
+		else
+		{
+			closegraph();
+		}
+		Sleep(100);
+	}
+}
 
 void getkey()
 {
@@ -249,6 +277,8 @@ void maintask()
 	Button del = NewButton(17, 35, 7, Quit[lan].c_str());
 	Button mouse1 = NewButton(7, 24, 7, "■  ");
 	Button mouse2 = NewButton(7, 24, 7, "  ■");
+	Button re1 = NewButton(9, 24, 7, "■  ");
+	Button re2 = NewButton(9, 24, 7, "  ■");
 	while (1)
 	{
 		if (recover == true)
@@ -430,6 +460,7 @@ void maintask()
 			while (1)
 			{
 				tellraw(7, 5, 7, NoMouse[lan]);
+				tellraw(7, 4, 9, Relocat[lan]);
 				tellraw(7, 12, 3, OnOff[lan]);
 				if (Preserve(del)) break;
 				if (mouse_stop == true)
@@ -447,6 +478,24 @@ void maintask()
 					{
 						mouse_stop = true;
 						ofstream out4("D:\\Data\\Screen-Locker\\Set.Ceh", ios::binary);
+						out4 << "1";
+					}
+				}
+				if (Relocation == true)
+				{
+					if (Preserve(re1))
+					{
+						Relocation = false;
+						ofstream out4("D:\\Data\\Screen-Locker\\Relocation.Ceh", ios::binary);
+						out4 << "0";
+					}
+				}
+				else
+				{
+					if (Preserve(re2))
+					{
+						Relocation = true;
+						ofstream out4("D:\\Data\\Screen-Locker\\Relocation.Ceh", ios::binary);
 						out4 << "1";
 					}
 				}
@@ -575,6 +624,15 @@ int main()
 	in5 >> z;
 	if (z == 1) mouse_stop = true;
 
+	ifstream in6("D:\\Data\\Screen-Locker\\Relocation.Ceh", ios::binary);
+	if (!in6)
+	{
+		ofstream out5("D:\\Data\\Screen-Locker\\Relocation.Ceh", ios::binary);
+		out5 << "0";
+	}
+	in6 >> z;
+	if (z == 1) Relocation = true;
+
 	Title = "Screen Locker " + edition + " Console";
 	SetConsoleTitle(TEXT(Title.c_str()));
 	
@@ -598,11 +656,13 @@ int main()
 	thread task02(getkey);
 	thread task03(maintask);
 	thread task04(taskre);
+	thread task05(lockscreen);
 
 	task01.join();
 	task02.join();
 	task03.join();
 	task04.join();
+	task05.join();
 
 	return 0;
 }
