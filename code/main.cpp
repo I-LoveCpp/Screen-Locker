@@ -2,7 +2,7 @@
 
 using namespace std;
 
-const string edition = "1412";
+const string edition = "1500";
 string Title;
 
 bool stop = true;
@@ -200,21 +200,19 @@ void lockscreen()
 	{
 		if (stop == false)
 		{
-			HWND hwnd1;	//本程序窗口 
-			HWND hwnd;	//目标窗口 
-			hwnd1 = GetForegroundWindow();//获取本程序窗口 
+			HWND hWnd;	//目标窗口 
 			//ShowWindow(hwnd, SW_HIDE);		//隐藏窗口 	
-			hwnd = GetHWnd();	//获取最顶层窗口 
-			SetWindowPos(hwnd, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);//窗口置顶 
+			hWnd = GetHWnd();	//获取最顶层窗口 
+			SetWindowPos(hWnd, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);//窗口置顶 
 			//ShowWindow(hwnd1, SW_RESTORE);		//激活并显示窗口 
 			//SetWindowPos(hwnd1, HWND_TOP, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);//窗口暂时置顶
-			ShowWindow(hwnd1, SW_MAXIMIZE);
+			ShowWindow(hWnd, SW_MAXIMIZE);
 		}
 		else
 		{
 			closegraph();
 		}
-		Sleep(100);
+		Sleep(1);
 	}
 }
 
